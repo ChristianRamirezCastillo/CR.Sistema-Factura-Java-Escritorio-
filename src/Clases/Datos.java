@@ -38,6 +38,10 @@ public class Datos {
         if (contUsuarios == maxUsuario) {
             return "Se ha alcanzado el numbero maximo de usuarios";
         }
+        
+        misUsuarios[contUsuarios] = miUsuario;
+        contUsuarios++;
+        return "Usuario agregado";
     }
     
     public Usuario[] getUsuarios() {
