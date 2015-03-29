@@ -1,11 +1,13 @@
 package Formularios;
 
 import Clases.Datos;
+import javax.swing.JOptionPane;
 
 public class frmUsuarios extends javax.swing.JInternalFrame {
 
     private Datos misDatos;
     private int usuAct = 0;
+    private boolean nuevo = false;
     
     public frmUsuarios() {
         initComponents();
@@ -44,6 +46,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Usuarios");
@@ -65,30 +68,30 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("ID Usuario");
+        jLabel1.setText("ID Usuario *");
 
         txtIdUsuario.setEnabled(false);
 
-        jLabel2.setText("Nombres");
+        jLabel2.setText("Nombres *");
 
         txtNombre.setEnabled(false);
 
         txtApellidos.setEnabled(false);
 
-        jLabel3.setText("Apellidos");
+        jLabel3.setText("Apellidos *");
 
-        jLabel4.setText("Clave");
+        jLabel4.setText("Clave *");
 
         txtClave.setEnabled(false);
 
-        jLabel5.setText("Confirmación");
+        jLabel5.setText("Confirmación *");
 
         txtConfirmacion.setEnabled(false);
 
         cboPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un Perfil", "Administrador", "Empleado" }));
         cboPerfil.setEnabled(false);
 
-        jLabel6.setText("Perfil");
+        jLabel6.setText("Perfil *");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -206,6 +209,9 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jLabel7.setForeground(java.awt.Color.blue);
+        jLabel7.setText("* Campos Obligatorios");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -234,12 +240,16 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
                                 .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtNombre)
-                            .addComponent(txtApellidos))))
+                            .addComponent(txtApellidos)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -271,11 +281,13 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
                     .addComponent(txtConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -314,9 +326,72 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         txtClave.setText("");
         txtConfirmacion.setText("");
         
+        //activamos el flag de registro nuevo
+        nuevo = true;
+        
         txtIdUsuario.requestFocusInWindow();
+        
     }//GEN-LAST:event_btnNuevoActionPerformed
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        //validaciones     
+        if (txtIdUsuario.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un ID");
+            txtIdUsuario.requestFocusInWindow();
+            return;
+        }
+        if (cboPerfil.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un Perfil");
+            cboPerfil.requestFocusInWindow();
+            return;
+        }
+        if (txtNombre.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Nombre(s)");
+            txtNombre.requestFocusInWindow();
+            return;
+        }
+        if (txtApellidos.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Apellido(s)");
+            txtApellidos.requestFocusInWindow();
+            return;
+        }
+        
+        String clave = new String(txtClave.getPassword());
+        String confirmacion = new String(txtConfirmacion.getPassword());
+        
+        if (clave.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar una Clave");
+            txtClave.requestFocusInWindow();
+            return;
+        }
+        if (confirmacion.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar una Confirmación");
+            txtConfirmacion.requestFocusInWindow();
+            return;
+        }
+        if (!clave.equals(confirmacion)) {
+            JOptionPane.showMessageDialog(rootPane, "La clave y la confirmacion no son iguales");
+            txtClave.requestFocusInWindow();
+            return;
+        }
+        
+        //si es nuevo, validamos que el usuario no exista
+        int pos = misDatos.posicionUsuario(txtIdUsuario.getText());
+        if (nuevo) {
+            if (pos != -1) {
+                JOptionPane.showMessageDialog(rootPane, "Usuario ya existe");
+                txtIdUsuario.requestFocusInWindow();
+                return;
+            }
+        } else {
+            if (pos == -1) {
+                JOptionPane.showMessageDialog(rootPane, "Usuario no existe");
+                txtApellidos.requestFocusInWindow();
+                return;
+            }
+        }
+        
+        //creamos el objeto usuario y lo agregamos a datos
+        
         btnPrimero.setEnabled(true);
         btnAnterior.setEnabled(true);
         btnSiguiente.setEnabled(true);
@@ -402,6 +477,9 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         txtApellidos.setEnabled(true);
         cboPerfil.setEnabled(true);
         
+          //desactivamos el flag de registro nuevo
+        nuevo = false;
+        
         txtNombre.requestFocusInWindow();
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -433,6 +511,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;

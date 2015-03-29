@@ -2,6 +2,7 @@ package Clases;
 
 public class Datos {
     
+    private int maxUsuario = 50;
     private Usuario misUsuarios[] = new Usuario[50];
     private int contUsuarios = 0;
     
@@ -11,11 +12,18 @@ public class Datos {
         contUsuarios++;
     }
     
-    
+    public int posicionUsuario(String usuario) {
+        int aux = -1;
+        for (int i = 0; i < contUsuarios; i++) {
+            if (misUsuarios[i].getIdUsuario().equals(usuario)) 
+                return 1;
+        }
+        
+        return -1;
+    }
     
     public boolean validarUsuario(String usuario, String clave) {
         boolean aux = false;
-        
         for (int i = 0; i < contUsuarios; i++) {
             if (misUsuarios[i].getIdUsuario().equals(usuario) && 
                     misUsuarios[i].getClave().equals(clave)) {
@@ -24,6 +32,12 @@ public class Datos {
         }
         
         return false;
+    }
+    
+    public String agregarUsuario(Usuario miUsuario) {
+        if (contUsuarios == maxUsuario) {
+            return "Se ha alcanzado el numbero maximo de usuarios";
+        }
     }
     
     public Usuario[] getUsuarios() {

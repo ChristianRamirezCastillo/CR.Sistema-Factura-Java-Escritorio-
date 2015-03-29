@@ -53,7 +53,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="txtClave" min="-2" pref="123" max="-2" attributes="0"/>
-                              <EmptySpace pref="78" max="32767" attributes="0"/>
+                              <EmptySpace pref="58" max="32767" attributes="0"/>
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtConfirmacion" min="-2" pref="185" max="-2" attributes="0"/>
@@ -61,6 +61,11 @@
                           <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtApellidos" alignment="0" max="32767" attributes="0"/>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -103,12 +108,14 @@
                   <Component id="txtConfirmacion" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -118,7 +125,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ID Usuario"/>
+        <Property name="text" type="java.lang.String" value="ID Usuario *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtIdUsuario">
@@ -128,7 +135,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombres"/>
+        <Property name="text" type="java.lang.String" value="Nombres *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombre">
@@ -143,12 +150,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Apellidos"/>
+        <Property name="text" type="java.lang.String" value="Apellidos *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Clave"/>
+        <Property name="text" type="java.lang.String" value="Clave *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtClave">
@@ -158,7 +165,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Confirmaci&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Confirmaci&#xf3;n *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtConfirmacion">
@@ -180,7 +187,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Perfil"/>
+        <Property name="text" type="java.lang.String" value="Perfil *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
@@ -371,5 +378,13 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="jLabel7">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="0" id="blue" palette="1" red="0" type="palette"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="* Campos Obligatorios"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
