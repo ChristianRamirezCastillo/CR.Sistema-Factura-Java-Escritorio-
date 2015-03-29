@@ -5,23 +5,23 @@ import Clases.Usuario;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class frmUsuarios extends javax.swing.JInternalFrame {
+public class frmProductos extends javax.swing.JInternalFrame {
 
     private Datos misDatos;
-    private int usuAct = 0;
+    private int proAct = 0;
     private boolean nuevo = false;
     private DefaultTableModel miTabla;
     
-    public frmUsuarios() {
+    public frmProductos() {
         initComponents();
     }
     public void setDatos(Datos misDatos) {
         this.misDatos = misDatos;
     }
     private void mostrarResgistro() {
-        txtIdUsuario.setText(misDatos.getUsuarios()[usuAct].getIdUsuario());
-        txtNombre.setText(misDatos.getUsuarios()[usuAct].getNombres());
-        txtApellidos.setText(misDatos.getUsuarios()[usuAct].getApellidos());
+        txtIdProducto.setText(misDatos.getUsuarios()[usuAct].getIdUsuario());
+        txtDescripcion.setText(misDatos.getUsuarios()[usuAct].getNombres());
+        txtPrecio.setText(misDatos.getUsuarios()[usuAct].getApellidos());
         txtClave.setText(misDatos.getUsuarios()[usuAct].getClave());
         txtConfirmacion.setText(misDatos.getUsuarios()[usuAct].getClave());
         cboPerfil.setSelectedIndex((misDatos.getUsuarios()[usuAct].getPerfil()));
@@ -38,7 +38,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
             registro[3] = perfil(misDatos.getUsuarios()[i].getPerfil());
             miTabla.addRow(registro);
         }
-        tblUsuarios.setModel(miTabla);
+        tblProducto.setModel(miTabla);
     }
     private String perfil(int idPerfil) {
         if (idPerfil == 1) return "Administrador";
@@ -50,17 +50,12 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtIdUsuario = new javax.swing.JTextField();
+        txtIdProducto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        txtApellidos = new javax.swing.JTextField();
+        txtDescripcion = new javax.swing.JTextField();
+        txtPrecio = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtClave = new javax.swing.JPasswordField();
-        jLabel5 = new javax.swing.JLabel();
-        txtConfirmacion = new javax.swing.JPasswordField();
-        cboPerfil = new javax.swing.JComboBox();
-        jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
         btnPrimero = new javax.swing.JButton();
@@ -76,10 +71,14 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         btnBorrar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblUsuarios = new javax.swing.JTable();
+        tblProducto = new javax.swing.JTable();
+        cboIGV = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtNota = new javax.swing.JTextArea();
 
         setClosable(true);
-        setTitle("Usuarios");
+        setTitle("Productos");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
                 formInternalFrameOpened(evt);
@@ -98,30 +97,19 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("ID Usuario *");
+        jLabel1.setText("ID Producto *");
 
-        txtIdUsuario.setEnabled(false);
+        txtIdProducto.setEnabled(false);
 
-        jLabel2.setText("Nombres *");
+        jLabel2.setText("Descripción *");
 
-        txtNombre.setEnabled(false);
+        txtDescripcion.setEnabled(false);
 
-        txtApellidos.setEnabled(false);
+        txtPrecio.setEnabled(false);
 
-        jLabel3.setText("Apellidos *");
+        jLabel3.setText("Nota");
 
-        jLabel4.setText("Clave *");
-
-        txtClave.setEnabled(false);
-
-        jLabel5.setText("Confirmación *");
-
-        txtConfirmacion.setEnabled(false);
-
-        cboPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un Perfil", "Administrador", "Empleado" }));
-        cboPerfil.setEnabled(false);
-
-        jLabel6.setText("Perfil *");
+        jLabel4.setText("IGV *");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -272,7 +260,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         jLabel7.setForeground(java.awt.Color.blue);
         jLabel7.setText("* Campos Obligatorios");
 
-        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+        tblProducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -283,7 +271,16 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblUsuarios);
+        jScrollPane1.setViewportView(tblProducto);
+
+        cboIGV.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0 %", "18 %", "19 %" }));
+        cboIGV.setEnabled(false);
+
+        jLabel5.setText("Precio *");
+
+        txtNota.setColumns(20);
+        txtNota.setRows(5);
+        jScrollPane2.setViewportView(txtNota);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -300,63 +297,58 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator1)
+                            .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel1))
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(46, 46, 46)
+                                        .addComponent(jLabel3)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDescripcion)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtNombre)
-                                    .addComponent(txtApellidos)))
-                            .addComponent(jScrollPane1))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(cboIGV, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane2))))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(txtConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboIGV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -389,25 +381,21 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         btnGuardar.setEnabled(true);
         
         //habilitar campos
-        txtIdUsuario.setEnabled(true);
-        txtClave.setEnabled(true);
-        txtConfirmacion.setEnabled(true);
-        txtNombre.setEnabled(true);
-        txtApellidos.setEnabled(true);
-        cboPerfil.setEnabled(true);
+        txtIdProducto.setEnabled(true);
+        txtDescripcion.setEnabled(true);
+        txtPrecio.setEnabled(true);
+        cboIGV.setEnabled(true);
         
         //limpiar campos
-        cboPerfil.setSelectedIndex(0);
-        txtIdUsuario.setText("");
-        txtNombre.setText("");
-        txtApellidos.setText("");
-        txtClave.setText("");
-        txtConfirmacion.setText("");
+        cboIGV.setSelectedIndex(0);
+        txtIdProducto.setText("");
+        txtDescripcion.setText("");
+        txtPrecio.setText("");
         
         //activamos el flag de registro nuevo
         nuevo = true;
         
-        txtIdUsuario.requestFocusInWindow();
+        txtIdProducto.requestFocusInWindow();
         
     }//GEN-LAST:event_btnNuevoActionPerformed
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -426,27 +414,27 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         btnGuardar.setEnabled(false);
         
         //validaciones     
-        if (txtIdUsuario.getText().equals("")) {
+        if (txtIdProducto.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Debe digitar un ID");
-            txtIdUsuario.requestFocusInWindow();
+            txtIdProducto.requestFocusInWindow();
             return;
         }
-        if (cboPerfil.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un Perfil");
-            cboPerfil.requestFocusInWindow();
+        if (txtDescripcion.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar una Descripcion");
+            txtDescripcion.requestFocusInWindow();
             return;
         }
-        if (txtNombre.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Nombre(s)");
-            txtNombre.requestFocusInWindow();
+        if (txtPrecio.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Precio");
+            txtPrecio.requestFocusInWindow();
             return;
         }
-        if (txtApellidos.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Apellido(s)");
-            txtApellidos.requestFocusInWindow();
+        if (cboIGV.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un IGV");
+            cboIGV.requestFocusInWindow();
             return;
         }
-        
+       
         String clave = new String(txtClave.getPassword());
         String confirmacion = new String(txtConfirmacion.getPassword());
         
@@ -469,23 +457,23 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         }
         
         //si es nuevo, validamos que el usuario no exista
-        int pos = misDatos.posicionUsuario(txtIdUsuario.getText());
+        int pos = misDatos.posicionUsuario(txtIdProducto.getText());
         if (nuevo) {
             if (pos != -1) {
                 JOptionPane.showMessageDialog(rootPane, "Usuario ya existe");
-                txtIdUsuario.requestFocusInWindow();
+                txtIdProducto.requestFocusInWindow();
                 return;
             }
         } else {
             if (pos == -1) {
                 JOptionPane.showMessageDialog(rootPane, "Usuario no existe");
-                txtApellidos.requestFocusInWindow();
+                txtPrecio.requestFocusInWindow();
                 return;
             }
         }
         
         //creamos el objeto usuario y lo agregamos a datos
-       Usuario miUsuario = new Usuario(txtIdUsuario.getText(), txtNombre.getText(), txtApellidos.getText(), clave, cboPerfil.getSelectedIndex());
+       Usuario miUsuario = new Usuario(txtIdProducto.getText(), txtDescripcion.getText(), txtPrecio.getText(), clave, cboPerfil.getSelectedIndex());
        String  msg;
        
        if (nuevo) {
@@ -497,18 +485,18 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
        JOptionPane.showMessageDialog(rootPane, msg);
 
         //deshabilitar campos
-        txtIdUsuario.setEnabled(false);
+        txtIdProducto.setEnabled(false);
         txtClave.setEnabled(false);
         txtConfirmacion.setEnabled(false);
-        txtNombre.setEnabled(false);
-        txtApellidos.setEnabled(false);
+        txtDescripcion.setEnabled(false);
+        txtPrecio.setEnabled(false);
         cboPerfil.setEnabled(false);
         
         //limpiar campos
         cboPerfil.setSelectedIndex(0);
-        txtIdUsuario.setText("");
-        txtNombre.setText("");
-        txtApellidos.setText("");
+        txtIdProducto.setText("");
+        txtDescripcion.setText("");
+        txtPrecio.setText("");
         txtClave.setText("");
         txtConfirmacion.setText("");
         
@@ -531,18 +519,18 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         btnGuardar.setEnabled(false);
         
         //deshabilitar campos
-        txtIdUsuario.setEnabled(false);
+        txtIdProducto.setEnabled(false);
         txtClave.setEnabled(false);
         txtConfirmacion.setEnabled(false);
-        txtNombre.setEnabled(false);
-        txtApellidos.setEnabled(false);
+        txtDescripcion.setEnabled(false);
+        txtPrecio.setEnabled(false);
         cboPerfil.setEnabled(false);
         
         //limpiar campos
         cboPerfil.setSelectedIndex(0);
-        txtIdUsuario.setText("");
-        txtNombre.setText("");
-        txtApellidos.setText("");
+        txtIdProducto.setText("");
+        txtDescripcion.setText("");
+        txtPrecio.setText("");
         txtClave.setText("");
         txtConfirmacion.setText("");
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -563,17 +551,17 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         btnGuardar.setEnabled(true);
         
         //habilitar campos
-        txtIdUsuario.setEnabled(false);
+        txtIdProducto.setEnabled(false);
         txtClave.setEnabled(true);
         txtConfirmacion.setEnabled(true);
-        txtNombre.setEnabled(true);
-        txtApellidos.setEnabled(true);
+        txtDescripcion.setEnabled(true);
+        txtPrecio.setEnabled(true);
         cboPerfil.setEnabled(true);
         
           //desactivamos el flag de registro nuevo
         nuevo = false;
         
-        txtNombre.requestFocusInWindow();
+        txtDescripcion.requestFocusInWindow();
     }//GEN-LAST:event_btnEditarActionPerformed
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
       mostrarResgistro();
@@ -641,23 +629,22 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnPrimero;
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton btnUltimo;
-    private javax.swing.JComboBox cboPerfil;
+    private javax.swing.JComboBox cboIGV;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable tblUsuarios;
-    private javax.swing.JTextField txtApellidos;
-    private javax.swing.JPasswordField txtClave;
-    private javax.swing.JPasswordField txtConfirmacion;
-    private javax.swing.JTextField txtIdUsuario;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTable tblProducto;
+    private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtIdProducto;
+    private javax.swing.JTextArea txtNota;
+    private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,7 +7,17 @@ public class Datos {
     private int contUsuarios = 0;
     
     public Datos() {
-        Usuario miUsuario = new Usuario("cramirez", "christian", "ramirez", "123", 1);
+        Usuario miUsuario;
+        
+        miUsuario = new Usuario("cramirez", "christian", "ramirez", "123", 1);
+        misUsuarios[contUsuarios] = miUsuario;
+        contUsuarios++;
+        
+        miUsuario = new Usuario("acaceres", "angie", "caceres", "123", 2);
+        misUsuarios[contUsuarios] = miUsuario;
+        contUsuarios++;
+        
+        miUsuario = new Usuario("acastillo", "ana", "castillo", "123", 2);
         misUsuarios[contUsuarios] = miUsuario;
         contUsuarios++;
     }
@@ -21,7 +31,6 @@ public class Datos {
         
         return -1;
     }
-    
     public boolean validarUsuario(String usuario, String clave) {
         boolean aux = false;
         for (int i = 0; i < contUsuarios; i++) {
@@ -33,7 +42,6 @@ public class Datos {
         
         return false;
     }
-    
     public String agregarUsuario(Usuario miUsuario) {
         if (contUsuarios == maxUsuario) {
             return "Se ha alcanzado el numbero maximo de usuarios";
@@ -43,7 +51,24 @@ public class Datos {
         contUsuarios++;
         return "Usuario agregado";
     }
+    public String modificarUsuario(Usuario miUsuario, int pos) { 
+        misUsuarios[pos].setNombres(miUsuario.getNombres());
+        misUsuarios[pos].setApellidos(miUsuario.getApellidos());
+        misUsuarios[pos].setClave(miUsuario.getClave());
+        misUsuarios[pos].setPerfil(miUsuario.getPerfil());
+        return "Usuario modificado correctamente";
+    }
+    public String borrarUsuario(int pos) {
+        for (int i = pos; i < contUsuarios - 1; i++) {
+            misUsuarios[i] = misUsuarios[i + 1];
+        }
+        contUsuarios--;
+        return "Usuario borrado correctamente";
+    }
     
+    public int numeroUsuarios() {
+        return contUsuarios;
+    }
     public Usuario[] getUsuarios() {
         return misUsuarios;
     }

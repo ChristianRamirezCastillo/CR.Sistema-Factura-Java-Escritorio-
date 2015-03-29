@@ -9,7 +9,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     public frmPrincipal() {
         initComponents();
     }
-    
     public void setDatos(Datos misDatos) {
         this.misDatos = misDatos;
     }
@@ -43,9 +42,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnuArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/archivo24x24.png"))); // NOI18N
         mnuArchivo.setText("Archivo");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/clientes24x24.png"))); // NOI18N
         jMenuItem1.setText("Clientes");
         mnuArchivo.add(jMenuItem1);
 
+        mnuArchivoProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/producto24x24.png"))); // NOI18N
         mnuArchivoProductos.setText("Productos");
         mnuArchivoProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,6 +55,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         mnuArchivo.add(mnuArchivoProductos);
 
+        mnuArchivoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/usuarios24x24.png"))); // NOI18N
         mnuArchivoUsuario.setText("Usuarios");
         mnuArchivoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,12 +65,15 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnuArchivo.add(mnuArchivoUsuario);
         mnuArchivo.add(jSeparator1);
 
+        mnuArchivoCAmbioUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/password24x24.png"))); // NOI18N
         mnuArchivoCAmbioUsuario.setText("Cambio Clave");
         mnuArchivo.add(mnuArchivoCAmbioUsuario);
 
+        mnuArchivoSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/usuarioCambio24x24.png"))); // NOI18N
         mnuArchivoSalir.setText("Cambio Usuario");
         mnuArchivo.add(mnuArchivoSalir);
 
+        mnuArchivoClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/salir24x24.png"))); // NOI18N
         mnuArchivoClientes.setText("Salir");
         mnuArchivoClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,9 +87,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnuMovimientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/movimientos24x24.png"))); // NOI18N
         mnuMovimientos.setText("Movimientos");
 
+        mnuMovimientosNuevaFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/facturaNuevo24x24.png"))); // NOI18N
         mnuMovimientosNuevaFactura.setText("Nueva Factura");
         mnuMovimientos.add(mnuMovimientosNuevaFactura);
 
+        mnuMovimientosReporteFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/facturaReporte24x24.png"))); // NOI18N
         mnuMovimientosReporteFactura.setText("Reporte Factura");
         mnuMovimientos.add(mnuMovimientosReporteFactura);
 
@@ -93,9 +100,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnuAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ayuda24x24.png"))); // NOI18N
         mnuAyuda.setText("Ayuda");
 
+        mnuAyudaAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/acercaDe24x24.png"))); // NOI18N
         mnuAyudaAcercaDe.setText("Acerca De");
         mnuAyuda.add(mnuAyudaAcercaDe);
 
+        mnuAyudaAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ayuda.ayuda24x24.png"))); // NOI18N
         mnuAyudaAyuda.setText("Ayuda");
         mnuAyuda.add(mnuAyudaAyuda);
 
@@ -118,7 +127,10 @@ public class frmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuArchivoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoProductosActionPerformed
-        // TODO add your handling code here:
+        frmProductos misProductos = new frmProductos();
+        misProductos.setDatos(misDatos);
+        dpnEscritorio.add(misProductos);
+        misProductos.show();
     }//GEN-LAST:event_mnuArchivoProductosActionPerformed
     private void mnuArchivoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoUsuarioActionPerformed
         frmUsuarios misUsuarios = new frmUsuarios();
