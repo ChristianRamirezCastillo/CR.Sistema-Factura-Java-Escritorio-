@@ -1,7 +1,8 @@
 package Formularios;
 
 import Clases.Datos;
-import Clases.Usuario;
+import Clases.Producto;
+import Clases.Utilidades;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,30 +20,34 @@ public class frmProductos extends javax.swing.JInternalFrame {
         this.misDatos = misDatos;
     }
     private void mostrarResgistro() {
-        txtIdProducto.setText(misDatos.getUsuarios()[usuAct].getIdUsuario());
-        txtDescripcion.setText(misDatos.getUsuarios()[usuAct].getNombres());
-        txtPrecio.setText(misDatos.getUsuarios()[usuAct].getApellidos());
-        txtClave.setText(misDatos.getUsuarios()[usuAct].getClave());
-        txtConfirmacion.setText(misDatos.getUsuarios()[usuAct].getClave());
-        cboPerfil.setSelectedIndex((misDatos.getUsuarios()[usuAct].getPerfil()));
+        txtIdProducto.setText(misDatos.getProductos()[proAct].getIdProducto());
+        txtDescripcion.setText(misDatos.getProductos()[proAct].getDescripcion());
+        txtPrecio.setText("" + misDatos.getProductos()[proAct].getPrecio());
+        cboIGV.setSelectedIndex((misDatos.getProductos()[proAct].getIGV()));
+        txtNota.setText(misDatos.getProductos()[proAct].getNota());
     }
     private void llenarTabla() {
-        String titulos[] = { "ID Usuario", "Nombres", "Apellidos", "Perfil" };
-        String registro[] = new String[4];
+        String titulos[] = { "ID Producto", "Descripcion", "Precio", "IGV", "Nota" };
+        String registro[] = new String[5];
         miTabla = new DefaultTableModel(null, titulos);
         
-        for (int i = 0; i < misDatos.numeroUsuarios(); i++) {
-            registro[0] = misDatos.getUsuarios()[i].getIdUsuario();
-            registro[1] = misDatos.getUsuarios()[i].getNombres();
-            registro[2] = misDatos.getUsuarios()[i].getApellidos();
-            registro[3] = perfil(misDatos.getUsuarios()[i].getPerfil());
+        for (int i = 0; i < misDatos.numeroProductos(); i++) {
+            registro[0] = misDatos.getProductos()[i].getIdProducto();
+            registro[1] = misDatos.getProductos()[i].getDescripcion();
+            registro[2] = "" + misDatos.getProductos()[i].getPrecio();
+            registro[3] = igv(misDatos.getProductos()[i].getIGV());
+            registro[4] = misDatos.getProductos()[i].getNota();
             miTabla.addRow(registro);
         }
         tblProducto.setModel(miTabla);
     }
-    private String perfil(int idPerfil) {
-        if (idPerfil == 1) return "Administrador";
-        else return "Empleado";
+    private String igv(int idIGV) {
+       switch(idIGV) {
+           case 0 : return "0 %";
+           case 1 : return "18 %";
+           case 2 : return "19 %"; 
+           default: return "No definido";
+       }       
     }
  
     @SuppressWarnings("unchecked")
@@ -105,6 +110,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
 
         txtDescripcion.setEnabled(false);
 
+        txtPrecio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtPrecio.setEnabled(false);
 
         jLabel3.setText("Nota");
@@ -280,6 +286,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
 
         txtNota.setColumns(20);
         txtNota.setRows(5);
+        txtNota.setEnabled(false);
         jScrollPane2.setViewportView(txtNota);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -385,12 +392,14 @@ public class frmProductos extends javax.swing.JInternalFrame {
         txtDescripcion.setEnabled(true);
         txtPrecio.setEnabled(true);
         cboIGV.setEnabled(true);
+        txtNota.setEnabled(true);
         
         //limpiar campos
         cboIGV.setSelectedIndex(0);
         txtIdProducto.setText("");
         txtDescripcion.setText("");
         txtPrecio.setText("");
+        txtNota.setText("");
         
         //activamos el flag de registro nuevo
         nuevo = true;
@@ -399,6 +408,70 @@ public class frmProductos extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnNuevoActionPerformed
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
+        //validaciones
+        if (txtIdProducto.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un ID");
+            txtIdProducto.requestFocusInWindow();
+            return;
+        }
+        if (txtDescripcion.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar una Descripcion");
+            txtDescripcion.requestFocusInWindow();
+            return;
+        }
+        
+        if (txtPrecio.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Precio");
+            txtPrecio.requestFocusInWindow();
+            return;
+        }
+        if (!Utilidades.isDouble(txtPrecio.getText())) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un valor numerico");
+            txtPrecio.requestFocusInWindow();
+            return;
+        }
+        double precio = Double.parseDouble(txtPrecio.getText());
+        if (precio <= 0) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un valor mayor a 0");
+            txtPrecio.requestFocusInWindow();
+            return;
+        }
+        
+        if (cboIGV.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un IGV");
+            cboIGV.requestFocusInWindow();
+            return;
+        }
+        
+        //si es nuevo, validamos que el usuario no exista
+        int pos = misDatos.posicionProducto(txtIdProducto.getText());
+        if (nuevo) {
+            if (pos != -1) {
+                JOptionPane.showMessageDialog(rootPane, "Producto ya existe");
+                txtIdProducto.requestFocusInWindow();
+                return;
+            }
+        } else {
+            if (pos == -1) {
+                JOptionPane.showMessageDialog(rootPane, "Producto no existe");
+                txtDescripcion.requestFocusInWindow();
+                return;
+            }
+        }
+        
+        //creamos el objeto usuario y lo agregamos a datos
+        Producto miProducto = new Producto(txtIdProducto.getText(), txtDescripcion.getText(), precio, cboIGV.getSelectedIndex(), txtNota.getText());
+        String  msg;
+       
+        if (nuevo) {
+            msg = misDatos.agregarProducto(miProducto);
+        } else {
+            msg = misDatos.modificarProducto(miProducto, pos);
+        }
+        
+        JOptionPane.showMessageDialog(rootPane, msg);
+        
         btnPrimero.setEnabled(true);
         btnAnterior.setEnabled(true);
         btnSiguiente.setEnabled(true);
@@ -413,92 +486,19 @@ public class frmProductos extends javax.swing.JInternalFrame {
         btnCancelar.setEnabled(false);
         btnGuardar.setEnabled(false);
         
-        //validaciones     
-        if (txtIdProducto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un ID");
-            txtIdProducto.requestFocusInWindow();
-            return;
-        }
-        if (txtDescripcion.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar una Descripcion");
-            txtDescripcion.requestFocusInWindow();
-            return;
-        }
-        if (txtPrecio.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Precio");
-            txtPrecio.requestFocusInWindow();
-            return;
-        }
-        if (cboIGV.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un IGV");
-            cboIGV.requestFocusInWindow();
-            return;
-        }
-       
-        String clave = new String(txtClave.getPassword());
-        String confirmacion = new String(txtConfirmacion.getPassword());
-        
-        if (clave.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar una Clave");
-            txtClave.requestFocusInWindow();
-            return;
-        }
-        if (confirmacion.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar una Confirmación");
-            txtConfirmacion.requestFocusInWindow();
-            return;
-        }
-        if (!clave.equals(confirmacion)) {
-            JOptionPane.showMessageDialog(rootPane, "La clave y la confirmacion no son iguales");
-            txtClave.setText("");
-            txtConfirmacion.setText("");
-            txtClave.requestFocusInWindow();
-            return;
-        }
-        
-        //si es nuevo, validamos que el usuario no exista
-        int pos = misDatos.posicionUsuario(txtIdProducto.getText());
-        if (nuevo) {
-            if (pos != -1) {
-                JOptionPane.showMessageDialog(rootPane, "Usuario ya existe");
-                txtIdProducto.requestFocusInWindow();
-                return;
-            }
-        } else {
-            if (pos == -1) {
-                JOptionPane.showMessageDialog(rootPane, "Usuario no existe");
-                txtPrecio.requestFocusInWindow();
-                return;
-            }
-        }
-        
-        //creamos el objeto usuario y lo agregamos a datos
-       Usuario miUsuario = new Usuario(txtIdProducto.getText(), txtDescripcion.getText(), txtPrecio.getText(), clave, cboPerfil.getSelectedIndex());
-       String  msg;
-       
-       if (nuevo) {
-            msg = misDatos.agregarUsuario(miUsuario);
-        } else {
-           msg = misDatos.modificarUsuario(miUsuario, pos);
-       }
-       
-       JOptionPane.showMessageDialog(rootPane, msg);
-
         //deshabilitar campos
         txtIdProducto.setEnabled(false);
-        txtClave.setEnabled(false);
-        txtConfirmacion.setEnabled(false);
         txtDescripcion.setEnabled(false);
         txtPrecio.setEnabled(false);
-        cboPerfil.setEnabled(false);
+        cboIGV.setEnabled(false);
+        txtNota.setEnabled(false);
         
         //limpiar campos
-        cboPerfil.setSelectedIndex(0);
+        cboIGV.setSelectedIndex(0);
         txtIdProducto.setText("");
         txtDescripcion.setText("");
         txtPrecio.setText("");
-        txtClave.setText("");
-        txtConfirmacion.setText("");
+        txtNota.setText("");
         
         //actualizamos los cambios en la tabla
         llenarTabla();
@@ -520,19 +520,17 @@ public class frmProductos extends javax.swing.JInternalFrame {
         
         //deshabilitar campos
         txtIdProducto.setEnabled(false);
-        txtClave.setEnabled(false);
-        txtConfirmacion.setEnabled(false);
         txtDescripcion.setEnabled(false);
         txtPrecio.setEnabled(false);
-        cboPerfil.setEnabled(false);
+        cboIGV.setEnabled(false);
+        txtNota.setEnabled(false);
         
         //limpiar campos
-        cboPerfil.setSelectedIndex(0);
+        cboIGV.setSelectedIndex(0);
         txtIdProducto.setText("");
         txtDescripcion.setText("");
         txtPrecio.setText("");
-        txtClave.setText("");
-        txtConfirmacion.setText("");
+        txtNota.setText("");
     }//GEN-LAST:event_btnCancelarActionPerformed
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         //habilitar botones
@@ -552,11 +550,10 @@ public class frmProductos extends javax.swing.JInternalFrame {
         
         //habilitar campos
         txtIdProducto.setEnabled(false);
-        txtClave.setEnabled(true);
-        txtConfirmacion.setEnabled(true);
         txtDescripcion.setEnabled(true);
         txtPrecio.setEnabled(true);
-        cboPerfil.setEnabled(true);
+        cboIGV.setEnabled(true);
+        txtNota.setEnabled(true);
         
           //desactivamos el flag de registro nuevo
         nuevo = false;
@@ -568,52 +565,52 @@ public class frmProductos extends javax.swing.JInternalFrame {
       llenarTabla();
     }//GEN-LAST:event_formInternalFrameOpened
     private void btnPrimeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeroActionPerformed
-        usuAct = 0;
+        proAct = 0;
         mostrarResgistro();
     }//GEN-LAST:event_btnPrimeroActionPerformed
     private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
-        usuAct = misDatos.numeroUsuarios() - 1;
+        proAct = misDatos.numeroProductos()- 1;
         mostrarResgistro();
     }//GEN-LAST:event_btnUltimoActionPerformed
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-       usuAct++;
-        if (usuAct == misDatos.numeroUsuarios()) {
-            usuAct = 0;
+       proAct++;
+        if (proAct == misDatos.numeroProductos()) {
+            proAct = 0;
         }
         mostrarResgistro();
     }//GEN-LAST:event_btnSiguienteActionPerformed
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
-         usuAct--;
-        if (usuAct == -1) {
-            usuAct = misDatos.numeroUsuarios() - 1;;
+         proAct--;
+        if (proAct == -1) {
+            proAct = misDatos.numeroProductos()- 1;;
         }
         mostrarResgistro();
     }//GEN-LAST:event_btnAnteriorActionPerformed
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        int rta = JOptionPane.showConfirmDialog(rootPane, "¿Es seguro de borrar el registro?");
+        int rta = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro de borrar el registro?");
         if (rta !=  0) {
             return;
         }
         String msg;
-        msg = misDatos.borrarUsuario(usuAct);
+        msg = misDatos.borrarProducto(proAct);
         JOptionPane.showMessageDialog(rootPane, msg);
-        usuAct = 0;
+        proAct = 0;
         mostrarResgistro();
         
           //actualizamos los cambios en la tabla
         llenarTabla();
     }//GEN-LAST:event_btnBorrarActionPerformed
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String usuario = JOptionPane.showInputDialog("Ingrese código de usuario");
-        if (usuario.equals("")) {
+        String producto = JOptionPane.showInputDialog("Ingrese código de Producto");
+        if (producto.equals("")) {
             return;
         }
-        int pos = misDatos.posicionUsuario(usuario);
+        int pos = misDatos.posicionProducto(producto);
         if (pos == -1) {
-            JOptionPane.showMessageDialog(rootPane, "Usuario no existe");
+            JOptionPane.showMessageDialog(rootPane, "Producto no existe");
             return;
         }
-        usuAct = pos;
+        proAct = pos;
         mostrarResgistro();
     }//GEN-LAST:event_btnBuscarActionPerformed
 

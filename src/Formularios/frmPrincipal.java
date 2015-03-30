@@ -44,6 +44,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/clientes24x24.png"))); // NOI18N
         jMenuItem1.setText("Clientes");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         mnuArchivo.add(jMenuItem1);
 
         mnuArchivoProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/producto24x24.png"))); // NOI18N
@@ -141,6 +146,13 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void mnuArchivoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoClientesActionPerformed
         System.exit(0);
     }//GEN-LAST:event_mnuArchivoClientesActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        frmClientes misClientes = new frmClientes();
+        misClientes.setDatos(misDatos);
+        dpnEscritorio.add(misClientes);
+        misClientes.show();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
