@@ -140,7 +140,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         dchFechaIngreso = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
-        setTitle("Productos");
+        setTitle("Clientes");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
                 formInternalFrameOpened(evt);

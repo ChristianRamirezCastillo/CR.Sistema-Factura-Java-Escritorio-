@@ -1,5 +1,10 @@
 package Clases;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Date;
 
 public class Datos {
@@ -7,7 +12,6 @@ public class Datos {
     private int maxUsuario = 50;
     private int maxProducto = 100;
     private int maxCliente = 100;
-    
     
     private Usuario misUsuarios[] = new Usuario[maxUsuario];
     private Producto misProductos[] = new Producto[maxProducto];
@@ -19,51 +23,321 @@ public class Datos {
     
     public Datos() {
         
-        //usuarios
-        Usuario miUsuario;
+        //cargamos usuarios
+        cargarUsuarios();
         
-        miUsuario = new Usuario("cramirez", "christian", "ramirez", "123", 1);
-        misUsuarios[contUsuarios] = miUsuario;
-        contUsuarios++;
+        //cargamos productos
+        cargarProductos();
         
-        miUsuario = new Usuario("acaceres", "angie", "caceres", "123", 2);
-        misUsuarios[contUsuarios] = miUsuario;
-        contUsuarios++;
-        
-        miUsuario = new Usuario("acastillo", "ana", "castillo", "123", 2);
-        misUsuarios[contUsuarios] = miUsuario;
-        contUsuarios++;
-        
-        //productos
-        Producto miProducto;
-        
-        miProducto = new Producto("1", "Cocal Cola", 3.50, 0, "");
-        misProductos[contProductos] = miProducto;
-        contProductos++;
-        
-        miProducto = new Producto("2", "Pan", 0.20, 1, "se vende mejor caliente");
-        misProductos[contProductos] = miProducto;
-        contProductos++;
-        
-        miProducto = new Producto("3", "Queso fresco x 400 GR", 4.50, 1, "");
-        misProductos[contProductos] = miProducto;
-        contProductos++;
-        
-        //clientes
-        Cliente miCliente;
-        
-        miCliente = new Cliente("1", 1, "Juan Carlos", "Zuluaga", "Direccion 01", "123-1234", 1, 
-                Utilidades.stringToDate("1974/09/23"), Utilidades.stringToDate("2015/03/30"));
-        misClientes[contClientes] = miCliente;
-        contClientes++;
-        
-         miCliente = new Cliente("2", 1, "Angie", "Caceres", "Direccion 02", "123-1234", 1, 
-                Utilidades.stringToDate("1985/09/23"), Utilidades.stringToDate("2015/03/27"));
-        misClientes[contClientes] = miCliente;
-        contClientes++;
+        //cargamos clientes
+       cargarClientes();
         
     }
     
+    public void grabarTodo() {
+        grabarUsuarios();
+        grabarClientes();
+        grabarProductos();
+    }
+    public void grabarUsuarios() {
+        FileWriter fw = null;
+        PrintWriter pw = null;
+        
+        try {
+            fw = new FileWriter("Data/usuario.txt");
+            pw = new PrintWriter(fw);
+            
+            for (int i = 0; i < contUsuarios; i++) {
+                pw.println(misUsuarios[i].toString());
+            }
+            
+        } catch (Exception ex1) {
+            ex1.printStackTrace();
+            
+        } finally {
+            try {
+                if (fw != null)
+                    fw.close();
+
+            } catch (Exception ex2) {
+                ex2.printStackTrace();
+            }
+        }
+        
+    }
+    public void grabarClientes() {
+        FileWriter fw = null;
+        PrintWriter pw = null;
+        
+        try {
+            fw = new FileWriter("Data/clientes.txt");
+            pw = new PrintWriter(fw);
+            
+            for (int i = 0; i < contClientes; i++) {
+                pw.println(misClientes[i].toString());
+            }
+            
+        } catch (Exception ex1) {
+            ex1.printStackTrace();
+            
+        } finally {
+            try {
+                if (fw != null)
+                    fw.close();
+
+            } catch (Exception ex2) {
+                ex2.printStackTrace();
+            }
+        }
+    }
+    public void grabarProductos() {
+        FileWriter fw = null;
+        PrintWriter pw = null;
+        
+        try {
+            fw = new FileWriter("Data/productos.txt");
+            pw = new PrintWriter(fw);
+            
+            for (int i = 0; i < contProductos; i++) {
+                pw.println(misProductos[i].toString());
+            }
+            
+        } catch (Exception ex1) {
+            ex1.printStackTrace();
+            
+        } finally {
+            try {
+                if (fw != null)
+                    fw.close();
+
+            } catch (Exception ex2) {
+                ex2.printStackTrace();
+            }
+        }
+    }
+    
+    public void cargarUsuarios() {
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        
+        try {
+            archivo = new File("Data/usuario.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            
+            int pos;
+            String aux ;
+            String linea;
+            
+            String idUsuario;
+            String nombres;
+            String apellidos;
+            String clave;
+            int perfil;
+            
+            while ( (linea = br.readLine()) != null )   {
+                //extraemos id usuario
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                idUsuario = aux;
+                linea = linea.substring(pos + 1);
+                
+                 //extraemos nombres
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                nombres = aux;
+                linea = linea.substring(pos + 1);
+                
+                 //extraemos apellidos
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                apellidos = aux;
+                linea = linea.substring(pos + 1);
+                
+                 //extraemos clave y perfil
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                clave = aux;
+                linea = linea.substring(pos + 1);
+                perfil = new Integer(linea);
+                
+                Usuario miUsuario;
+                miUsuario = new Usuario(idUsuario, nombres, apellidos, clave, perfil);
+                misUsuarios[contUsuarios] = miUsuario;
+                contUsuarios++;
+        
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        
+        } finally   {
+            try {
+                if (fr != null)
+                    fr.close();
+                
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        } 
+    }
+    public void cargarProductos() {
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        
+        try {
+            archivo = new File("Data/productos.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            
+            int pos;
+            String aux ;
+            String linea;
+            
+            String idProducto;
+            String descripcion;
+            double precio;
+            int IGV;
+            String nota;
+            
+            while ( (linea = br.readLine()) != null )   {
+                //extraemos id producto
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                idProducto = aux;
+                linea = linea.substring(pos + 1);
+                
+                 //extraemos descripcion
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                descripcion = aux;
+                linea = linea.substring(pos + 1);
+                
+                 //extraemos precio
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                precio = new Double(aux);
+                linea = linea.substring(pos + 1);
+                
+                 //extraemos igv y nota
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                IGV = new Integer(aux);
+                linea = linea.substring(pos + 1);
+                nota = linea;
+                
+                Producto miproProducto;
+                miproProducto = new Producto(idProducto, descripcion, precio, IGV, nota);
+                misProductos[contProductos] = miproProducto;
+                contProductos++;
+        
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        
+        } finally   {
+            try {
+                if (fr != null)
+                    fr.close();
+                
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        } 
+    }
+    public void cargarClientes() {
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        
+        try {
+            archivo = new File("Data/clientes.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            
+            int pos;
+            String aux ;
+            String linea;
+            
+            String idCliente;
+            int tipoIdentificacion;
+            String nombres;
+            String apellidos;
+            String direccion;
+            String telefono;
+            int idDistrito = 0;
+            Date fechaNacimiento;
+            Date fechaIngreso;
+            
+            while ( (linea = br.readLine()) != null )   {
+                //extraemos id cliente
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                idCliente = aux;
+                linea = linea.substring(pos + 1);
+                
+                 //extraemos tipo identificacion
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                tipoIdentificacion = new Integer(aux);
+                linea = linea.substring(pos + 1);
+                
+                 //extraemos nombres
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                nombres = aux;
+                linea = linea.substring(pos + 1);
+                
+                 //extraemos apellidos
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                apellidos = aux;
+                linea = linea.substring(pos + 1);
+                
+                 //extraemos direccion
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                direccion = aux;
+                linea = linea.substring(pos + 1);
+                
+                //extraemos telefono
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                telefono = aux;
+                linea = linea.substring(pos + 1);
+                
+                //extraemos fecha nac. y fecha registro
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                fechaNacimiento = Utilidades.stringToDate(aux);
+                linea = linea.substring(pos + 1);              
+                fechaIngreso = Utilidades.stringToDate(linea);
+                
+                Cliente miCliente;
+                miCliente = new Cliente(idCliente, tipoIdentificacion, nombres, apellidos, direccion, telefono, 
+                        idDistrito,fechaNacimiento, fechaIngreso);
+                misClientes[contClientes] = miCliente;
+                contClientes++;
+        
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        
+        } finally   {
+            try {
+                if (fr != null)
+                    fr.close();
+                
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        } 
+    }
+
     //usuarios
     public String agregarUsuario(Usuario miUsuario) {
         if (contUsuarios == maxUsuario) {

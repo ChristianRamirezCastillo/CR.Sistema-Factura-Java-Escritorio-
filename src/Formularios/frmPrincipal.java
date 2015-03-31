@@ -21,13 +21,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         dpnEscritorio = new DesktopConFondo();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuArchivo = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        mnuArchivoProductos = new javax.swing.JMenuItem();
-        mnuArchivoUsuario = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        mnuArchivoCAmbioUsuario = new javax.swing.JMenuItem();
-        mnuArchivoSalir = new javax.swing.JMenuItem();
         mnuArchivoClientes = new javax.swing.JMenuItem();
+        mnuArchivoProductos = new javax.swing.JMenuItem();
+        mnuArchivoUsuarios = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        mnuArchivoCambioClave = new javax.swing.JMenuItem();
+        mnuArchivoCambioUsuario = new javax.swing.JMenuItem();
+        mnuArchivoSalir = new javax.swing.JMenuItem();
         mnuMovimientos = new javax.swing.JMenu();
         mnuMovimientosNuevaFactura = new javax.swing.JMenuItem();
         mnuMovimientosReporteFactura = new javax.swing.JMenuItem();
@@ -48,14 +48,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnuArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/archivo24x24.png"))); // NOI18N
         mnuArchivo.setText("Archivo");
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/clientes24x24.png"))); // NOI18N
-        jMenuItem1.setText("Clientes");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mnuArchivoClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/clientes24x24.png"))); // NOI18N
+        mnuArchivoClientes.setText("Clientes");
+        mnuArchivoClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mnuArchivoClientesActionPerformed(evt);
             }
         });
-        mnuArchivo.add(jMenuItem1);
+        mnuArchivo.add(mnuArchivoClientes);
 
         mnuArchivoProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/producto24x24.png"))); // NOI18N
         mnuArchivoProductos.setText("Productos");
@@ -66,32 +66,32 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         mnuArchivo.add(mnuArchivoProductos);
 
-        mnuArchivoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/usuarios24x24.png"))); // NOI18N
-        mnuArchivoUsuario.setText("Usuarios");
-        mnuArchivoUsuario.addActionListener(new java.awt.event.ActionListener() {
+        mnuArchivoUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/usuarios24x24.png"))); // NOI18N
+        mnuArchivoUsuarios.setText("Usuarios");
+        mnuArchivoUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuArchivoUsuarioActionPerformed(evt);
+                mnuArchivoUsuariosActionPerformed(evt);
             }
         });
-        mnuArchivo.add(mnuArchivoUsuario);
+        mnuArchivo.add(mnuArchivoUsuarios);
         mnuArchivo.add(jSeparator1);
 
-        mnuArchivoCAmbioUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/password24x24.png"))); // NOI18N
-        mnuArchivoCAmbioUsuario.setText("Cambio Clave");
-        mnuArchivo.add(mnuArchivoCAmbioUsuario);
+        mnuArchivoCambioClave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/password24x24.png"))); // NOI18N
+        mnuArchivoCambioClave.setText("Cambio Clave");
+        mnuArchivo.add(mnuArchivoCambioClave);
 
-        mnuArchivoSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/usuarioCambio24x24.png"))); // NOI18N
-        mnuArchivoSalir.setText("Cambio Usuario");
-        mnuArchivo.add(mnuArchivoSalir);
+        mnuArchivoCambioUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/usuarioCambio24x24.png"))); // NOI18N
+        mnuArchivoCambioUsuario.setText("Cambio Usuario");
+        mnuArchivo.add(mnuArchivoCambioUsuario);
 
-        mnuArchivoClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/salir24x24.png"))); // NOI18N
-        mnuArchivoClientes.setText("Salir");
-        mnuArchivoClientes.addActionListener(new java.awt.event.ActionListener() {
+        mnuArchivoSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/salir24x24.png"))); // NOI18N
+        mnuArchivoSalir.setText("Salir");
+        mnuArchivoSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuArchivoClientesActionPerformed(evt);
+                mnuArchivoSalirActionPerformed(evt);
             }
         });
-        mnuArchivo.add(mnuArchivoClientes);
+        mnuArchivo.add(mnuArchivoSalir);
 
         jMenuBar1.add(mnuArchivo);
 
@@ -143,21 +143,22 @@ public class frmPrincipal extends javax.swing.JFrame {
         dpnEscritorio.add(misProductos);
         misProductos.show();
     }//GEN-LAST:event_mnuArchivoProductosActionPerformed
-    private void mnuArchivoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoUsuarioActionPerformed
+    private void mnuArchivoUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoUsuariosActionPerformed
         frmUsuarios misUsuarios = new frmUsuarios();
         misUsuarios.setDatos(misDatos);
         dpnEscritorio.add(misUsuarios);
         misUsuarios.show();
-    }//GEN-LAST:event_mnuArchivoUsuarioActionPerformed
-    private void mnuArchivoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoClientesActionPerformed
+    }//GEN-LAST:event_mnuArchivoUsuariosActionPerformed
+    private void mnuArchivoSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoSalirActionPerformed
+        misDatos.grabarTodo();
         System.exit(0);
-    }//GEN-LAST:event_mnuArchivoClientesActionPerformed
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mnuArchivoSalirActionPerformed
+    private void mnuArchivoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoClientesActionPerformed
         frmClientes misClientes = new frmClientes();
         misClientes.setDatos(misDatos);
         dpnEscritorio.add(misClientes);
         misClientes.show();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mnuArchivoClientesActionPerformed
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         ((DesktopConFondo) dpnEscritorio).setImagen("/Images/fondo.jpg");
     }//GEN-LAST:event_formWindowOpened
@@ -197,14 +198,14 @@ public class frmPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dpnEscritorio;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu mnuArchivo;
-    private javax.swing.JMenuItem mnuArchivoCAmbioUsuario;
+    private javax.swing.JMenuItem mnuArchivoCambioClave;
+    private javax.swing.JMenuItem mnuArchivoCambioUsuario;
     private javax.swing.JMenuItem mnuArchivoClientes;
     private javax.swing.JMenuItem mnuArchivoProductos;
     private javax.swing.JMenuItem mnuArchivoSalir;
-    private javax.swing.JMenuItem mnuArchivoUsuario;
+    private javax.swing.JMenuItem mnuArchivoUsuarios;
     private javax.swing.JMenu mnuAyuda;
     private javax.swing.JMenuItem mnuAyudaAcercaDe;
     private javax.swing.JMenuItem mnuAyudaAyuda;

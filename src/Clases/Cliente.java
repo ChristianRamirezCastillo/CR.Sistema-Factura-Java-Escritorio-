@@ -90,4 +90,17 @@ public class Cliente {
         this.fechaIngreso = fechaIngreso;
     }
     
+    @Override public String toString() {
+        return idCliente + "|"
+                + tipoIdentificacion + "|"
+                + nombres + "|"
+                + apellidos + "|"
+                + direccion + "|"
+                + telefono + "|"
+                + idDistrito + "|"
+                + fechaNacimiento + "|"
+                + fechaIngreso;
+    }
+    
+    
 }

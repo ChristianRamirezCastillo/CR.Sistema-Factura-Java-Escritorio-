@@ -49,4 +49,13 @@ public class Usuario {
     public void setPerfil(int perfil) {
         this.perfil = perfil;
     }
+    
+    @Override public String toString() {
+        return idUsuario + "|"
+                + nombres + "|"
+                + apellidos + "|"
+                + clave + "|"
+                + perfil;
+    }
+    
 }

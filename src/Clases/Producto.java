@@ -50,5 +50,12 @@ public class Producto {
         this.nota = nota;
     }
     
+    @Override public String toString() {
+        return idProducto + "|"
+                + descripcion + "|"
+                + precio + "|"
+                + IGV + "|"
+                + nota;
+    }
     
 }
