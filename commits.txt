@@ -1,0 +1,47 @@
+commit cc10de7333615d7559d5afc2e0587a02c9c09670
+Author: Christian Ramirez <chriserc@outlook.com>
+Date:   Wed Apr 1 10:34:25 2015 -0500
+
+    Se agrega : CLASE DATOS funcion de formato de fecha
+
+commit 659c0b03cbc9306270e520b3184ca84f351ddd6a
+Author: Christian Ramirez <chriserc@outlook.com>
+Date:   Tue Mar 31 14:58:21 2015 -0500
+
+    Se agrega : CLASE DATOS persistencia de datos
+
+commit 01cc48383981a68c77703b672c22bbe1c2542b35
+Author: Christian Ramirez <chriserc@outlook.com>
+Date:   Mon Mar 30 18:52:00 2015 -0500
+
+    Se agrega : CLASE FONDO DESKTOP
+
+commit 62d2c7c311165f31fe5ef60bae1ac35f9448a786
+Author: Christian Ramirez <chriserc@outlook.com>
+Date:   Mon Mar 30 17:05:40 2015 -0500
+
+    Se agrega : FORMULARIO CLIENTE
+
+commit ed569f60c89a3830bea0cce85558ce0bc3ffb1aa
+Author: Christian Ramirez <chriserc@outlook.com>
+Date:   Sun Mar 29 17:39:36 2015 -0500
+
+    Se agrega : FORMULARIO PRODUCTO
+
+commit a9175e3315910d26d03ed760b4561fb36b9daca7
+Author: Christian Ramirez <chriserc@outlook.com>
+Date:   Sun Mar 29 11:42:14 2015 -0500
+
+    Se agrega : FORMULARIO USUARIOS
+
+commit 9906ade3bd6813312a8272142b0db0d72c17116e
+Author: Christian Ramirez <chriserc@outlook.com>
+Date:   Sun Mar 29 11:39:51 2015 -0500
+
+    Se agrega : FORMULARIO MDI PRICIPAL
+
+commit fe0b09a4d9470b3263a24d71c492294dcaefa112
+Author: Christian Ramirez <chriserc@outlook.com>
+Date:   Sat Mar 28 18:51:47 2015 -0500
+
+    se agrega : FORMULARIO INICIO DE SESION
