@@ -98,8 +98,8 @@ public class Cliente {
                 + direccion + "|"
                 + telefono + "|"
                 + idDistrito + "|"
-                + fechaNacimiento + "|"
-                + fechaIngreso;
+                + Utilidades.formatDate(fechaNacimiento) + "|"
+                + Utilidades.formatDate(fechaIngreso);
     }
     
     

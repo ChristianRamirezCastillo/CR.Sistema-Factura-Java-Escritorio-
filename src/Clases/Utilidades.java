@@ -31,6 +31,9 @@ public class Utilidades {
         }
         return aux;
     }
-    
+    public static String formatDate(Date fecha) {
+        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy/MM/dd");
+        return formatoDelTexto.format(fecha);
+    }
     
 }
