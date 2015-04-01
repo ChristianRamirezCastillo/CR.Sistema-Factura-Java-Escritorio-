@@ -30,7 +30,7 @@ public class Datos {
         cargarProductos();
         
         //cargamos clientes
-       cargarClientes();
+        cargarClientes();
         
     }
     
@@ -307,6 +307,12 @@ public class Datos {
                 pos = linea.indexOf('|');
                 aux = linea.substring(0, pos);
                 telefono = aux;
+                linea = linea.substring(pos + 1);
+                
+                 //extraemos id distrito
+                pos = linea.indexOf('|');
+                aux = linea.substring(0, pos);
+                idDistrito = new Integer(aux);
                 linea = linea.substring(pos + 1);
                 
                 //extraemos fecha nac. y fecha registro

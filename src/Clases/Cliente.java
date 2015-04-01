@@ -102,5 +102,4 @@ public class Cliente {
                 + Utilidades.formatDate(fechaIngreso);
     }
     
-    
 }
