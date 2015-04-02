@@ -54,6 +54,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cambio Clave"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuArchivoCambioClaveActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuArchivoCambioUsuario">
               <Properties>
@@ -62,6 +65,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cambio Usuario"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuArchivoCambioUsuarioActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuArchivoSalir">
               <Properties>

@@ -370,6 +370,7 @@ public class Datos {
     }
     public boolean validarUsuario(String usuario, String clave) {
         boolean aux = false;
+                
         for (int i = 0; i < contUsuarios; i++) {
             if (misUsuarios[i].getIdUsuario().equals(usuario) && 
                     misUsuarios[i].getClave().equals(clave)) {
@@ -378,6 +379,14 @@ public class Datos {
         }
         
         return false;
+    }
+    public int getPerfil(String usuario) {
+        for (int i = 0; i < contUsuarios; i++) {
+            if (misUsuarios[i].getIdUsuario().equals(usuario)) {
+                return misUsuarios[i].getPerfil();
+            }
+        }
+        return -1;
     }
     public int posicionUsuario(String usuario) {
         int aux = -1;
