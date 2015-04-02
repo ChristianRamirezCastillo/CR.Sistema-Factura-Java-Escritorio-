@@ -135,6 +135,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         mnuAyudaAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/acercaDe24x24.png"))); // NOI18N
         mnuAyudaAcercaDe.setText("Acerca De");
+        mnuAyudaAcercaDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAyudaAcercaDeActionPerformed(evt);
+            }
+        });
         mnuAyuda.add(mnuAyudaAcercaDe);
 
         mnuAyudaAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ayuda.ayuda24x24.png"))); // NOI18N
@@ -208,6 +213,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         miCambio.setLocationRelativeTo(this);
         miCambio.setVisible(true);
     }//GEN-LAST:event_mnuArchivoCambioClaveActionPerformed
+    private void mnuAyudaAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAyudaAcercaDeActionPerformed
+       frmAcercaDe miAcerca = new frmAcercaDe(this, rootPaneCheckingEnabled);
+       miAcerca.setLocationRelativeTo(this);
+       miAcerca.setVisible(true);
+    }//GEN-LAST:event_mnuAyudaAcercaDeActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
