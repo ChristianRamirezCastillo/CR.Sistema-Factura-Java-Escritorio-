@@ -403,7 +403,7 @@ public class Datos {
     public Usuario[] getUsuarios() {
         return misUsuarios;
     }
-    
+        
     //productos
     public Producto[] getProductos() {
         return misProductos;
@@ -488,4 +488,13 @@ public class Datos {
         return "Cliente borrado correctamente";
     }
     
+    //cambio clave
+     public void cambioClave(String usuario, String clave) {
+        for (int i = 0; i < contUsuarios; i++) {
+            if (misUsuarios[i].getIdUsuario().equals(usuario)) {
+                misUsuarios[i].setClave(clave);
+                return;
+            }
+        }
+    }
 }

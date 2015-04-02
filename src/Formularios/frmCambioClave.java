@@ -1,5 +1,8 @@
 package Formularios;
 
+import Clases.Datos;
+import javax.swing.JOptionPane;
+
 public class frmCambioClave extends javax.swing.JDialog {
 
     public frmCambioClave(java.awt.Frame parent, boolean modal) {
@@ -7,15 +10,29 @@ public class frmCambioClave extends javax.swing.JDialog {
         initComponents();
     }
 
+    private String clave;
+    private String usuario;
+    private Datos misDatos;
+    
+    public void setDatos(Datos misDatos) {
+        this.misDatos = misDatos;
+    }
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+     public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jPasswordField2 = new javax.swing.JPasswordField();
+        txtPasswordNuevo = new javax.swing.JPasswordField();
+        txtPasswordActual = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
-        jPasswordField3 = new javax.swing.JPasswordField();
+        txtPasswordConfirmacion = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -64,9 +81,9 @@ public class frmCambioClave extends javax.swing.JDialog {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPasswordField3)
-                            .addComponent(jPasswordField1)
-                            .addComponent(jPasswordField2)))
+                            .addComponent(txtPasswordConfirmacion)
+                            .addComponent(txtPasswordNuevo)
+                            .addComponent(txtPasswordActual)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -83,14 +100,14 @@ public class frmCambioClave extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPasswordActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPasswordNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPasswordConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -104,22 +121,44 @@ public class frmCambioClave extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-
-        /*if (!misDatos.validarUsuario(txtUsuario.getText(), new String(txtPassword.getPassword()))) {
-            JOptionPane.showMessageDialog(rootPane, "Usuario o Clave incorrecto");
-            txtUsuario.setText("");
-            txtPassword.setText("");
-            txtUsuario.requestFocusInWindow();
+        String actual = new String(txtPasswordActual.getPassword());
+        String nueva = new String(txtPasswordNuevo.getPassword());
+        String confirmacion = new String(txtPasswordConfirmacion.getPassword());
+        
+        if (actual.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe ingresar la clave actual");
+            txtPasswordActual.requestFocusInWindow();
             return;
         }
-
-        frmPrincipal miPrincipal = new frmPrincipal();
-        this.setVisible(false);
-        miPrincipal.setDatos(misDatos);
-        miPrincipal.setPerfil(misDatos.getPerfil(txtUsuario.getText()));
-        miPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        miPrincipal.setVisible(true);*/
-
+        if (nueva.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe ingresar una clave actual");
+            txtPasswordNuevo.requestFocusInWindow();
+            return;
+        }
+        if (confirmacion.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe ingresar una confirmación de la clave");
+            txtPasswordConfirmacion.requestFocusInWindow();
+            return;
+        }
+        
+        if (!actual.equals(clave)) {
+            JOptionPane.showMessageDialog(rootPane, "La clave actual no corresponde a la clave del usuario ingresado");
+            txtPasswordActual.setText("");
+            txtPasswordActual.requestFocusInWindow();
+            return;
+        }
+        if (!nueva.equals(confirmacion)) {
+            JOptionPane.showMessageDialog(rootPane, "La clave y la confirmación no corresponden");
+            txtPasswordActual.setText("");
+            txtPasswordConfirmacion.setText("");
+            txtPasswordActual.requestFocusInWindow();
+            return;
+        }
+        
+        // Cambiamos la clave
+        misDatos.cambioClave(usuario, nueva);
+        JOptionPane.showMessageDialog(rootPane, "Clave cambiada");
+        this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
@@ -171,8 +210,8 @@ public class frmCambioClave extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JPasswordField jPasswordField3;
+    private javax.swing.JPasswordField txtPasswordActual;
+    private javax.swing.JPasswordField txtPasswordConfirmacion;
+    private javax.swing.JPasswordField txtPasswordNuevo;
     // End of variables declaration//GEN-END:variables
 }

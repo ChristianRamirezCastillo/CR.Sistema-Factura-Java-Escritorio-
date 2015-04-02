@@ -7,6 +7,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private Datos misDatos;
     private int perfil;
+    private String clave;
+    private String usuario;
     
     public frmPrincipal() {
         initComponents();
@@ -16,6 +18,12 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
     public void setPerfil(int perfil) {
         this.perfil = perfil;
+    }
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     @SuppressWarnings("unchecked")
@@ -194,6 +202,10 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuArchivoCambioUsuarioActionPerformed
     private void mnuArchivoCambioClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArchivoCambioClaveActionPerformed
         frmCambioClave miCambio = new frmCambioClave(this, rootPaneCheckingEnabled);
+        miCambio.setClave(clave);
+        miCambio.setUsuario(usuario);
+        miCambio.setDatos(misDatos);
+        miCambio.setLocationRelativeTo(this);
         miCambio.setVisible(true);
     }//GEN-LAST:event_mnuArchivoCambioClaveActionPerformed
 
