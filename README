@@ -1,0 +1,23 @@
+
+SISTEMA DE FACTURACION
+
+Version 1.0
+-----------
+El sistema de facturación esta programado en lenguaje JAVA con NetBeans 8.0.2 en Ubuntu 14.04 LTS para la plataforma de ESCRITORIO.
+
+El sistema contempla 4 modulos
+- Modulo de Clientes
+- Modulo de Usuarios
+- Modulo de Productos
+- Modulo de Facturas
+
+NOTA:
+El sistema tiene como repositorio de datos un archivo de texto guardado en la carpeta DATA.
+
+El sistema es de codigo abierto para su mejora.
+
+El sistema debe ser compartido para todos los interesados en aportar al proyecto usando como sistema de versionado GIT y repositorio GitHub.
+
+Web:
+http://www.solarwinds.com/es/help-desk-software.aspx
+
