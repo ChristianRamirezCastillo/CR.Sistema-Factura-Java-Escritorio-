@@ -97,6 +97,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nueva Factura"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuMovimientosNuevaFacturaActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuMovimientosReporteFactura">
               <Properties>

@@ -3,11 +3,11 @@ package Clases;
 public class Producto {
     private String idProducto;
     private String descripcion;
-    private double precio;
+    private int precio;
     private int IGV; // 0=0%, 1=10%, 2=16%
     private String nota;
 
-    public Producto(String idProducto, String descripcion, double precio, int IGV, String nota) {
+    public Producto(String idProducto, String descripcion, int precio, int IGV, String nota) {
         this.idProducto = idProducto;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -29,10 +29,10 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public double getPrecio() {
+    public int getPrecio() {
         return precio;
     }
-    public void setPrecio(double precio) {
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
 

@@ -35,5 +35,20 @@ public class Utilidades {
         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy/MM/dd");
         return formatoDelTexto.format(fecha);
     }
-    
+    public static String objectToString(Object obj) {
+        String str = "";
+        if (obj != null) {
+            str = obj.toString();
+        }
+        return str;
+    }
+    public static int objectToInt(Object obj) {
+        int numInt = Integer.parseInt(objectToString(obj));
+        return numInt;
+    }
+    public static double objectToDouble(Object obj) {
+        String str = obj.toString();
+        double numDouble = Double.valueOf(str).doubleValue();
+        return numDouble;
+    }
 }

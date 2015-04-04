@@ -122,6 +122,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         mnuMovimientosNuevaFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/facturaNuevo24x24.png"))); // NOI18N
         mnuMovimientosNuevaFactura.setText("Nueva Factura");
+        mnuMovimientosNuevaFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMovimientosNuevaFacturaActionPerformed(evt);
+            }
+        });
         mnuMovimientos.add(mnuMovimientosNuevaFactura);
 
         mnuMovimientosReporteFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/facturaReporte24x24.png"))); // NOI18N
@@ -218,6 +223,12 @@ public class frmPrincipal extends javax.swing.JFrame {
        miAcerca.setLocationRelativeTo(this);
        miAcerca.setVisible(true);
     }//GEN-LAST:event_mnuAyudaAcercaDeActionPerformed
+    private void mnuMovimientosNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMovimientosNuevaFacturaActionPerformed
+        frmFactura miFactura = new frmFactura();
+        miFactura.setDatos(misDatos);
+        dpnEscritorio.add(miFactura);
+        miFactura.show();
+    }//GEN-LAST:event_mnuMovimientosNuevaFacturaActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

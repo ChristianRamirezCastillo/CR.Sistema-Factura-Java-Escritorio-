@@ -21,6 +21,9 @@ public class Datos {
     private int contProductos = 0;
     private int contClientes= 0;
     
+    private int numFactura = 0;
+    
+    
     public Datos() {
         
         //cargamos usuarios
@@ -32,12 +35,15 @@ public class Datos {
         //cargamos clientes
         cargarClientes();
         
+        // Cargamos coniguracion
+        cargarConfiguracion();
     }
     
     public void grabarTodo() {
         grabarUsuarios();
         grabarClientes();
         grabarProductos();
+        grabarConfiguracion();
     }
     public void grabarUsuarios() {
         FileWriter fw = null;
@@ -198,7 +204,7 @@ public class Datos {
             
             String idProducto;
             String descripcion;
-            double precio;
+            int precio;
             int IGV;
             String nota;
             
@@ -218,7 +224,7 @@ public class Datos {
                  //extraemos precio
                 pos = linea.indexOf('|');
                 aux = linea.substring(0, pos);
-                precio = new Double(aux);
+                precio = new Integer(aux);
                 linea = linea.substring(pos + 1);
                 
                  //extraemos igv y nota
@@ -412,7 +418,6 @@ public class Datos {
         return contProductos;
     }
     public int posicionProducto(String producto) {
-        int aux = -1;
         for (int i = 0; i < contProductos; i++) {
             if (misProductos[i].getIdProducto().equals(producto)) 
                 return 1;
@@ -497,4 +502,70 @@ public class Datos {
             }
         }
     }
+     
+     //configuracion
+     public void cargarConfiguracion() {
+         File archivo = null;
+         FileReader fr = null;
+         BufferedReader br = null;
+         
+         try {
+             archivo = new File("Data/Configuracion.ini");
+             fr = new FileReader(archivo);
+             br = new BufferedReader(fr);
+             
+             String linea;
+             
+             while ( (linea = br.readLine()) != null )   {
+                 if (linea.startsWith("FacturaActual")) {
+                     numFactura = new Integer(linea.substring(14));
+                 }
+             }
+             
+         } catch (Exception e) {
+             e.printStackTrace();
+             
+         } finally   {
+             try {
+                 if (fr != null)
+                     fr.close();
+                 
+             } catch (Exception e2) {
+                 e2.printStackTrace();
+             }
+         }
+     }
+     public void grabarConfiguracion() {
+        FileWriter fw = null;
+        PrintWriter pw = null;
+        
+        try {
+            fw = new FileWriter("Data/Configuracion.ini");
+            pw = new PrintWriter(fw);
+            
+            pw.println("[General]");
+            pw.println("FacturaActual=" + numFactura);
+            
+        } catch (Exception ex1) {
+            ex1.printStackTrace();
+            
+        } finally {
+            try {
+                if (fw != null)
+                    fw.close();
+
+            } catch (Exception ex2) {
+                ex2.printStackTrace();
+            }
+        }
+        
+    }
+     
+     //factura
+     public int getNumFac() {
+         return numFactura;
+     }
+     public  void setNumFac(int numFac) {
+         this.numFactura = numFac;
+     }
 }

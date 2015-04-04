@@ -431,7 +431,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
             txtPrecio.requestFocusInWindow();
             return;
         }
-        double precio = Double.parseDouble(txtPrecio.getText());
+        int precio = Integer.parseInt(txtPrecio.getText());
         if (precio <= 0) {
             JOptionPane.showMessageDialog(rootPane, "Debe digitar un valor mayor a 0");
             txtPrecio.requestFocusInWindow();
